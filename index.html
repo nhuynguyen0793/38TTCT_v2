@@ -597,6 +597,7 @@
         bottom: 12px;
         max-height: calc(100% - 24px);
         overflow-y: auto;
+        min-width: 190px;
       }
       .legend i {
         display: inline-block;
@@ -1240,7 +1241,7 @@
               >
               <div class="sv3ck sv3-A" id="sv3boxA">
                 <label
-                  ><input type="checkbox" id="sv3A" style="accent-color: var(--k)" />
+                  ><input type="checkbox" id="sv3A" checked style="accent-color: var(--k)" />
                   <i class="dot"></i>Vùng phục vụ A</label
                 >
                 <div class="sub">
@@ -1256,7 +1257,7 @@
               </div>
               <div class="sv3ck sv3-B" id="sv3boxB">
                 <label
-                  ><input type="checkbox" id="sv3B" style="accent-color: var(--k)" />
+                  ><input type="checkbox" id="sv3B" checked style="accent-color: var(--k)" />
                   <i class="dot"></i>Vùng phục vụ B</label
                 >
                 <div class="sub">
@@ -1272,7 +1273,7 @@
               </div>
               <div class="sv3ck sv3-C" id="sv3boxC">
                 <label
-                  ><input type="checkbox" id="sv3C" style="accent-color: var(--k)" />
+                  ><input type="checkbox" id="sv3C" checked style="accent-color: var(--k)" />
                   <i class="dot"></i>Vùng phục vụ C</label
                 >
                 <div class="sub">
@@ -42669,7 +42670,7 @@
           brk
             .map(
               (b, i) =>
-                `<div><i style="background:${PAL[i]};color:${PAL[i]}"></i>${i == brk.length - 1 ? "≥ " + fmt(b) : fmt(b) + " – " + fmt(brk[i + 1])}</div>`,
+                `<div><i style="background:${PAL[i]};color:${PAL[i]}"></i>${i == brk.length - 1 ? "≥ " + fmt(b) + u : fmt(b) + " – " + fmt(brk[i + 1]) + u}</div>`,
             )
             .join("");
       }
