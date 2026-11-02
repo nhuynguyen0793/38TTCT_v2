@@ -17,18 +17,43 @@ st.markdown(
     footer,
     [data-testid="stToolbar"] { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
+        width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
+        width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        overflow: hidden !important;
+    }
     .block-container {
         padding: 0 !important;
         margin: 0 !important;
         max-width: none !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
     }
     iframe {
         display: block;
-        border: 0;
     }
     iframe[title="streamlit_components.v1.html"] {
+        position: fixed !important;
+        inset: 0 !important;
         width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
         border: 0 !important;
+        z-index: 999 !important;
     }
     </style>
     """,
@@ -86,4 +111,4 @@ resize_script = """
 """
 html = html.replace("</body>", resize_script + "\n</body>", 1)
 
-components.html(html, height=780, scrolling=True)
+components.html(html, height=900, scrolling=False)
