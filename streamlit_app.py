@@ -3,6 +3,7 @@ from pathlib import Path
 import streamlit as st
 import streamlit.components.v1 as components
 
+
 st.set_page_config(
     page_title="HCA - Trung tâm Chính trị",
     page_icon="🗺️",
@@ -15,8 +16,10 @@ st.markdown(
     <style>
     header[data-testid="stHeader"],
     footer,
-    [data-testid="stToolbar"] { display: none !important; }
-    [data-testid="stDecoration"] { display: none !important; }
+    [data-testid="stToolbar"],
+    [data-testid="stDecoration"] {
+        display: none !important;
+    }
     html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
         width: 100% !important;
         height: 100vh !important;
@@ -45,6 +48,7 @@ st.markdown(
     }
     iframe {
         display: block;
+        border: 0 !important;
     }
     iframe[title="streamlit_components.v1.html"] {
         position: fixed !important;
@@ -52,7 +56,6 @@ st.markdown(
         width: 100vw !important;
         height: 100vh !important;
         height: 100dvh !important;
-        border: 0 !important;
         z-index: 999 !important;
     }
     </style>
@@ -60,25 +63,35 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-html_file = "V3_TTCT_Linkdata8.html"
-html_path = Path(__file__).with_name(html_file)
-if not html_path.exists():
-    html_path = Path(__file__).with_name("index.html")
-if not html_path.exists():
+html_candidates = (
+    "index.html",
+    "V3_TTCT_Linkdata8.html",
+)
+html_path = next(
+    (Path(__file__).with_name(name) for name in html_candidates if (Path(__file__).with_name(name)).exists()),
+    None,
+)
+
+if html_path is None:
     st.error("Không tìm thấy file HTML của ứng dụng.")
     st.stop()
 
 html = html_path.read_text(encoding="utf-8")
 
-html = html.replace(
-    "<head>",
-    """<head>
+if "<head>" in html:
+    html = html.replace(
+        "<head>",
+        """<head>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <style>
-      html, body { width: 100% !important; height: 100% !important; min-height: 100% !important; }
+      html, body {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+      }
     </style>""",
-    1,
-)
+        1,
+    )
 
 resize_script = """
 <script>
@@ -109,6 +122,8 @@ resize_script = """
   })();
 </script>
 """
-html = html.replace("</body>", resize_script + "\n</body>", 1)
+
+if "</body>" in html:
+    html = html.replace("</body>", resize_script + "\n</body>", 1)
 
 components.html(html, height=900, scrolling=False)
