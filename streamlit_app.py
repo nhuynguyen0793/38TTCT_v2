@@ -13,8 +13,8 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    [data-testid="stAppViewContainer"] { background: #060a14; }
-    [data-testid="stHeader"] { height: 0; }
+    header[data-testid="stHeader"],
+    footer,
     [data-testid="stToolbar"] { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
     html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
@@ -22,6 +22,8 @@ st.markdown(
         height: 100vh !important;
         height: 100dvh !important;
         overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
         width: 100% !important;
@@ -58,7 +60,14 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-html_path = Path(__file__).with_name("index.html")
+html_file = "V3_TTCT_Linkdata8.html"
+html_path = Path(__file__).with_name(html_file)
+if not html_path.exists():
+    html_path = Path(__file__).with_name("index.html")
+if not html_path.exists():
+    st.error("Không tìm thấy file HTML của ứng dụng.")
+    st.stop()
+
 html = html_path.read_text(encoding="utf-8")
 
 html = html.replace(
