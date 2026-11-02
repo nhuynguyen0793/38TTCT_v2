@@ -1,11 +1,11 @@
 [project]
-name = "blank-app-template"
+name = "hca-trung-tam-chinh-tri"
 version = "0.1.0"
-description = "A simple Streamlit app template."
+description = "Ung dung HCA - Trung tam Chinh tri."
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11,<3.15"
 dependencies = [
-    "streamlit>=1.61.1",
+    "streamlit>=1.38,<2.0",
 ]
 
 [tool.uv]
