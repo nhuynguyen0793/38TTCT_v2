@@ -17,6 +17,21 @@ st.markdown(
     [data-testid="stHeader"] { height: 0; }
     [data-testid="stToolbar"] { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
+        width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+    [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
+        width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        overflow: hidden !important;
+    }
     .block-container {
         padding: 0 !important;
         margin: 0 !important;
@@ -25,6 +40,9 @@ st.markdown(
         height: 100vh !important;
         height: 100dvh !important;
         overflow: hidden !important;
+    }
+    iframe {
+        display: block;
     }
     iframe[title="streamlit_components.v1.html"] {
         position: fixed !important;
@@ -67,6 +85,12 @@ resize_script = """
         type: "streamlit:setFrameHeight",
         height: height
       }, "*");
+      window.dispatchEvent(new Event("resize"));
+      try {
+        if (typeof m1 !== "undefined" && m1) m1.invalidateSize();
+        if (typeof m2 !== "undefined" && m2) m2.invalidateSize();
+        if (typeof m3 !== "undefined" && m3) m3.invalidateSize();
+      } catch (_) {}
     }
     window.addEventListener("load", resize);
     window.addEventListener("resize", resize);
